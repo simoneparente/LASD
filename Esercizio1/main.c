@@ -8,11 +8,17 @@ indice di posizione di v nel vettore), rimuova v da H, mantenendo la proprietà 
 
 #define MAX 10
 
-int main(){
-    int H[MAX]={42, 37, 40, 25, 20, 3, 20, 7, 18, 1};
-    int v=;
+void funzione(int *H, int v, int indice){
+    
+}
 
-    funzione(H);
+int main(){
+    srand(time(NULL));
+    int H[MAX]={42, 37, 40, 25, 20, 3, 20, 7, 18, 1};
+    int i=(rand() % (MAX));
+    int v=H[i];
+
+    funzione(H, v, i);
 
 
 }
