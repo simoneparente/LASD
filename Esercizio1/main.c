@@ -4,10 +4,15 @@ indice di posizione di v nel vettore), rimuova v da H, mantenendo la proprietà 
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define MAX 10
 
 int main(){
+    int H[MAX]={42, 37, 40, 25, 20, 3, 20, 7, 18, 1};
+    int v=;
 
-    int heap[MAX]={};
+    funzione(H);
+
+
 }
