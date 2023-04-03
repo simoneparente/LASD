@@ -71,6 +71,8 @@ Node *newDeck(){
 }
 
 
+
+
 int main(){
   Node *head=newDeck();
   printList(head);
