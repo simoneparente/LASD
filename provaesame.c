@@ -3,7 +3,7 @@ Scrivere una fuzione in c che prese due liste doppiamente puntate non circolari 
 da tastiera, implementare le seguenti funzioni ricorsive:
 - stampa delle liste
 - ordinare l1 in ordine crescente (non cambiare i valori)
-- rimuovere da l1 i dispari e li sposti in testa a l2
+- rimuovere da l1 i dispari e  in testa a l2
 */
 
 #include <stdio.h>
@@ -98,28 +98,57 @@ void swapNodes(struct Node** head_ref, struct Node* node1, struct Node* node2) {
     }
 }
 
-int getDim(Node **cursore){
+int bubbleSort(struct Node** head, int count)
+{
+    struct Node** h;
+    int i, j, swapped;
+ 
+    for (i = 0; i <= count; i++) {
+ 
+        h = head;
+        swapped = 0;
+ 
+        for (j = 0; j < count - i - 1; j++) {
+ 
+            struct Node* p1 = *h;
+            struct Node* p2 = p1->next;
+ 
+            if (p1->valore > p2->valore) {
+ 
+                /* update the link after swapping */
+                swapNodes(head, p1, p2);
+                swapped = 1;
+            }
+ 
+            h = &(*h)->next;
+        }
+ 
+        /* break if the loop ended without any swap */
+        if (swapped == 0)
+            break;
+    }
+}
+
+int getLenght(Node *head){
+    Node *cursore=head;
     int n=0;
-    while(*cursore!=NULL){
+    while(cursore!=NULL){
         n++;
-        *cursore = (*cursore)->next;
+        cursore=cursore->next;
     }
     return n;
 }
 
-void selectionSort(Node **head){
-    Node *cursore= *head;
-    Node *min = *head;
-    
-    while(cursore!=NULL){
-        if(cursore->valore < min->valore){
-            swapNodes(head, cursore, min);
-        }
-        cursore=cursore->next;
+void reversePrintList(Node *last){
+    if(last==NULL){
+        printf("NULL\n");
+        return;
     }
-
+    else{
+        printf("%d ---> ", last->valore);
+        printList(last->prev);
+    }
 }
-
 
 int main(){
     Node *l1 = newList();
@@ -127,8 +156,9 @@ int main(){
 
     printList(l1);
     //printList(l2);
-    selectionSort(&l1);
-    printList(l1);
+    bubbleSort(&l1, getLenght(l1));
     printf("Dopo aver ordinato l1\n");
-
+    printList(l1);
+    reversePrintList(getLast(l1));
+    
 }
