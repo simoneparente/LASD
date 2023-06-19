@@ -190,10 +190,10 @@ void main(){
     addEdge(g, 1, 4);
     addEdge(g, 2, 4);
     printGraph(g);
-    addVert(g);
-    printf(TEXTCOLOR_RED "dopo addVert\n" TEXTCOLOR_DEFAULT);
+    if(addVert(g)){ 
+        printf("Vertice %d aggiunto\n", g->nvert-1);
+    }
     printGraph(g);
     deleteGraph(g);
-    printf(TEXTCOLOR_RED " GRAFO ELIMINTATO\n" TEXTCOLOR_DEFAULT);
+    printf(TEXTCOLOR_RED "GRAFO ELIMINTATO\n" TEXTCOLOR_DEFAULT);
 }
-
