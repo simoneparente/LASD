@@ -8,5 +8,8 @@ void main(){
     prova = insHead(prova, newNode());
     insTail(prova, newNode());
     printList(prova);
-
+    prova=removeHead(prova);
+    printList(prova);
+    removeTail(prova);
+    printList(prova);
 }

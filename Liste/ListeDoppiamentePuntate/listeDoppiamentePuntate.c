@@ -38,30 +38,47 @@ Node *getLast(Node *head){
 Node *insHead(Node *head, Node *new){
     head->prev=new;
     new->next=head;
-    printf("Nodo %d inserito in testa\n", new->val);
+    printf(TEXTCOLOR_RED "Nodo %d inserito in testa\n", new->val);
+    printf(TEXTCOLOR_DEFAULT "");
     return new;
 }
-#include <stdio.h>
-#include <stdlib.h>
-#include "listeDoppiamentePuntate.h"
 
 
 void insTail(Node *head, Node *new){
     Node *tail = getLast(head);
     tail->next=new;
     new->prev=tail;
+    printf(TEXTCOLOR_RED "Nodo %d inserito in coda\n", new->val);
+    printf(TEXTCOLOR_DEFAULT "");
 }
 
+
+Node *removeHead(Node *head){
+    Node *temp=head;
+    head=head->next;
+    printf(TEXTCOLOR_RED "Rimozione head [Nodo %d]\n", temp->val);
+    printf(TEXTCOLOR_DEFAULT "");
+    freeNode(temp);
+    return head;
+}
+
+void *removeTail(Node *head){
+    Node *temp = getLast(head);
+    temp->prev->next=NULL;
+    printf(TEXTCOLOR_RED "Rimozione tail [Nodo %d]\n", temp->val);
+    printf(TEXTCOLOR_DEFAULT "");
+    freeNode(temp);
+}
 
 //-----------------------------------------------------------------------------------------------------------------------------
 
 //Funzione che prende in input la testa di una lista  e la stampa
 void printList(Node *head){
     if(head==NULL){
-        printf("NULL\n");
+        printf(TEXTCOLOR_DEFAULT"NULL\n");
         return;
     } else{
-        printf("%d --> ", head->val);
+        printf(TEXTCOLOR_YELLOW "%d --> ", head->val);
         printList(head->next);
     }
 }
@@ -77,4 +94,11 @@ void reversePrintList(Node *tail){
     }
 }
 
+
+void freeNode(Node *node){
+    node->next=NULL;
+    node->prev=NULL;
+    node->val=0;
+    free(node);
+}
 #endif
