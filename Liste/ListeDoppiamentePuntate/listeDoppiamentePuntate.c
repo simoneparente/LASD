@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef LISTEDOPPIAMENTEPUNTATE
 #include "listeDoppiamentePuntate.h"
 
+#define LISTEDOPPIAMENTEPUNTATE
 //Corpi delle funzioni che operano su liste doppiamente puntate
 
 Node *newNode(){
@@ -76,3 +76,5 @@ void reversePrintList(Node *tail){
         reversePrintList(tail->prev);
     }
 }
+
+#endif
