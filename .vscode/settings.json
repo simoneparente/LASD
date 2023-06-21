@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "listedoppiamentepuntate.h": "c"
+        "listedoppiamentepuntate.h": "c",
+        "memory": "c",
+        "random": "c"
     }
 }
