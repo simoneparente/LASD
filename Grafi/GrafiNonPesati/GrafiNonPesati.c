@@ -2,12 +2,8 @@
 //     1 È VERO
 
 //TODO Decidere se impostare il valore di ritorno delle funzioni a void oppure implementare dei controlli decenti
-#ifndef GRAFINONPESATI
 
 #include "GrafiNonPesati.h"
-
-#define GRAFINONPESATI
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -155,5 +151,3 @@ int numEdg(Graph *g){
     }
     return nEdg;
 }
-
-#endif

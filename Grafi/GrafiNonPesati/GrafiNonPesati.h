@@ -1,9 +1,12 @@
+#ifndef GRAFINONPESATI_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define TEXTCOLOR_RED "\x1b[31m"
 #define TEXTCOLOR_DEFAULT "\x1b[0m"
 
+#define GRAFINONPESATI_H
 
 typedef struct Node {
     int val; 
@@ -28,3 +31,4 @@ int deleteGraph(Graph *g);
 int isEmpty(Graph *g);
 int numEdg(Graph *g);
 void printGraph(Graph *g);
+#endif
