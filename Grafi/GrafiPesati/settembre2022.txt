@@ -1,0 +1,7 @@
+Dato un grafo orientato pesato rappresentato con liste di adiacenza, 
+scrivere una funzione che rimuova tutti gli archi con peso pari e tutti
+i nodi con grado uscente dispari.
+
+
+archi peso pari (if e->peso%2==0)
+nodi grado uscente dispari if(count)
