@@ -34,7 +34,6 @@ void newGraph(Graph **g){
         scanf("%d", &s);
         if(s==0) return;
     }
-    int weight=0;
     *g = (Graph *) malloc(sizeof(Graph));
     printf("Inserisci il numero di vertici: ");
     scanf("%d", &(*g)->nvert);
@@ -83,18 +82,18 @@ void addEdge(Graph **g){
     }
         printf("Inserisci il vertice da cui esce l'arco (da [0] a [%d]): \n", (*g)->nvert-1);
         scanf("%d", &source);
-        while(source>=(*g)->nvert || source <= 0){
+        while(source>=(*g)->nvert && source <= 0){ // source non può essere > nvert e allo stesso tempo non può essere <0
             printf(TEXTCOLOR_RED"Inserisci il vertice da cui esce l'arco (da [0] a [%d]): \n"TEXTCOLOR_DEFAULT, (*g)->nvert-1);
-            scanf("%d", &source);
+            scanf("%d", &source); //0
         }
         printf("Inserisci il vertice in cui entra l'arco (da [0] a [%d] e non se' stesso [%d]): \n"TEXTCOLOR_DEFAULT, (*g)->nvert-1, source);
-            scanf("%d", &dest);
-        while(dest>=(*g)->nvert || dest <= 0 || source==dest){
+            scanf("%d", &dest); //4
+        while(dest>=(*g)->nvert && dest <= 0 && source==dest){
             printf(TEXTCOLOR_RED"Inserisci il vertice in cui entra l'arco (da [0] a [%d] e non se' stesso [%d]): \n"TEXTCOLOR_DEFAULT, (*g)->nvert-1, source);
             scanf("%d", &dest);
         }
         printf("Inserire il peso dell'arco (maggiore o uguale a 0): \n"TEXTCOLOR_DEFAULT);
-            scanf("%d", &weight);
+            scanf("%d", &weight); //3
         while(weight<0){
             printf(TEXTCOLOR_RED"Inserire il peso dell'arco (maggiore di 0): \n"TEXTCOLOR_DEFAULT);
             scanf("%d", &weight);
@@ -287,3 +286,5 @@ void help(){
     "tutti i vertici con grado uscente dispari\n");
     printf("Digitare [0] per uscire\n");
 }
+
+
