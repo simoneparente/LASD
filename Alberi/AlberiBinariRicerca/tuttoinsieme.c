@@ -1,4 +1,48 @@
-#include "ABR.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <limits.h>
+
+typedef struct Node
+{
+	int info_radice;
+	struct Node* sinistro;
+	struct Node* destro;
+} Node;
+
+
+typedef struct Three{
+    int key;
+    struct Three *sx;
+    struct Three *middle;
+    struct Three *dx;
+} Three;
+
+//Ritorna 1 se l'albero è vuoto, 0 in caso contrario
+int vuoto (Node *rad);
+
+//Crea un ABR di n elementi dati in input da tastiera
+Node* creaABR();
+//Crea un nodo con valore value
+Node* crea_nodo(int value);
+//Stampa la radice, stampa tutto il sottoalbero sinistro, stampa tutto il sottoalbero destro
+void visita_in_preordine(Node *radice);
+//Stampa tutto il sottoalbero sinistro, stampa la radice, stampa tutto il sottoalbero destro
+void visita_in_ordine(Node *radice);
+//Stampa tutto il sottoalbero sinistro, stampa tutto il sottoalbero destro, stampa la radice
+void visita_in_postordine(Node *radice);
+//Dato un albero, inserisce un nuovo nodo con valore "value"
+Node* inserisci(Node* root, int value);
+//Dato un albero elimina il nodo di valore "value"
+Node* deleteNode(Node* root, int value);
+//Dato un albero trova il nodo più piccolo (iterativa)
+Node* findMinimum(Node* root);
+//Dato un albero e un valore, ritorna 1 se il valore è nell'albero, 0 in caso contrario
+int ricerca (Node *radice, int r);
+//Dato un albero ritorna il nodo più piccolo
+int ricerca_minimo (Node *radice);
+//Dato un albero, dealloca tutti i suoi nodi
+void dealloca(Node* root);
 
 int vuoto (Node *rad)
 { 	
@@ -90,10 +134,12 @@ Node* inserisci(Node* root, int value)
         return crea_nodo(value);
 
     // Altrimenti, effettua la ricerca ricorsiva del punto di inserimento
-    if (value < root->info_radice)
-        root->sinistro = inserisci(root->sinistro, value);
-    else if (value > root->info_radice)
+    if (value >= root->info_radice){
         root->destro = inserisci(root->destro, value);
+    }
+    else{
+        root->sinistro = inserisci(root->sinistro, value);
+    }
 
     return root;
 }
@@ -202,9 +248,59 @@ void dealloca(Node* root)
     free(root);
 }
 
+
+
+void printThree(Three *root) {
+    if (root) {
+        printThree(root->sx);
+        printf("%d ", root->key);
+        printThree(root->middle);
+        printThree(root->dx);
+    }
+}
+
+/*
+Scrivere una funzione che dato un ABR T verifichi che T sia un ABR
+e costruisca un albero T' ternario in modo che per ogni nodo
+in T che abbia entrambi i figli, si aggiunga in T' un 
+terzo figlio middle, che è un nodo foglia, contenente la somma
+delle chiavi dei due fratelli
+*/
+Three* esercizio(Node* ABR) {
+    if (ABR == NULL) {
+        return NULL;
+    }
+
+    Three* new = (Three*)malloc(sizeof(Three));
+    new->key = ABR->info_radice;
+    new->sx = NULL;
+    new->middle = NULL;
+    new->dx = NULL;
+
+    if (ABR->sinistro && ABR->destro) {
+        new->middle = (Three*)malloc(sizeof(Three));
+        new->middle->key = ABR->sinistro->info_radice + ABR->destro->info_radice;
+        new->middle->sx = NULL;
+        new->middle->middle = NULL;
+        new->middle->dx = NULL;
+        new->sx = esercizio(ABR->sinistro);
+        new->dx = esercizio(ABR->destro);
+    } else if (ABR->sinistro) {
+        new->sx = esercizio(ABR->sinistro);
+    } else if (ABR->destro) {
+        new->dx = esercizio(ABR->destro);
+    }
+
+    return new;
+}
+
+
+
+
 int main() 
 {
     Node* root = NULL; // Radice dell'ABR
+    Three *rad=NULL;
     int scelta, value;
 
     do {
@@ -215,6 +311,7 @@ int main()
         printf("4. Cercare il minimo nell'ABR\n");
         printf("5. Stampare gli elementi dell'ABR (visita in ordine)\n");
         printf("6. Eliminare un elemento nell'ABR\n");
+        printf("7. Per l'esercizio di merda\n");
         printf("0. Uscita\n");
         printf("----------------------\n");
         printf("Scelta: ");
@@ -258,9 +355,14 @@ int main()
 	   	printf("Valore da eliminare\n");
     	    	scanf("%d",&value);
 		root=deleteNode(root,value);
-	  	break;
+            break;
+        case 7:
+        rad = esercizio(root);
+        printThree(rad);
+            break;
+	  	
 	}
-	}while(scelta==1 || scelta==2 || scelta==3 || scelta==4 || scelta==5 || scelta==6);
+	}while(scelta==1 || scelta==2 || scelta==3 || scelta==4 || scelta==5 || scelta==6 || scelta==7);
 	
 	
 

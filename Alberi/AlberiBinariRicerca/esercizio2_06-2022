@@ -1,0 +1,5 @@
+Scrivere una funzione che dato un ABR T verifichi che T sia un ABR
+e costruisca un albero T' ternario in modo che per ogni nodo
+in T che abbia entrambi i figli, si aggiunga in T' un 
+terzo figlio middle, che è un nodo foglia, contenente la somma
+delle chiavi dei due fratelli
