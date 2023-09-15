@@ -3,6 +3,10 @@
         "stdio.h": "c",
         "listedoppiamentepuntate.h": "c",
         "memory": "c",
-        "random": "c"
+        "random": "c",
+        "curses.h": "c",
+        "list.h": "c",
+        "grafipesativerticiordinati": "c",
+        "cmath": "c"
     }
 }

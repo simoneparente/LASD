@@ -5,8 +5,8 @@
 //da un singolo nodo radice.
 void heapify(int arr[], int n, int i) {
     int largest = i;
-    int l = 2 * i + 1; // sinistro = 2*i + 1
-    int r = 2 * i + 2; // destro = 2*i + 2
+    int l = 2 * i + 1; //il figlio sinistro di i si trova in posizione = 2*i + 1
+    int r = 2 * i + 2; //il fglio destro di i si trova in posizione = 2*i + 2
 
     // Verifica se il figlio sinistro è più grande del padre
     if (l < n && arr[i] < arr[l])
@@ -67,9 +67,6 @@ void buildHeap(int arr[], int n){
 
 void main(){
     int heap[9]={100, 54, 94, 32, 7, 37, 22, 21, 4};
-    //printArray(heap, 9);
-    //heapSort(heap, 9);
-//42      37      40      18      20      3       25      7       1       20
     int prova[10]={42, 37, 3, 7, 20, 40, 20, 25, 18, 1 };
     printArray(prova, 10);
     buildHeap(prova, 10);

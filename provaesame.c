@@ -64,70 +64,53 @@ Node *newList(){
 
 }
 
-void swapNodes(struct Node** head_ref, struct Node* node1, struct Node* node2) {
-    if ((node1 == node2) || (node1 == NULL || node2 == NULL)) {
+void insertNode(Node **head, Node *node) {
+    if (*head == NULL || (*head)->valore >= node->valore) {
+        // Inserimento del nodo alla testa della lista
+        node->next = *head;
+        node->prev = NULL;
+        if (*head != NULL) {
+            (*head)->prev = node;
+        }
+        *head = node;
+    } else {
+        // Inserimento del nodo in una posizione diversa dalla testa
+        Node *current = *head;
+        while (current->next != NULL && current->next->valore < node->valore) {
+            current = current->next;
+        }
+        node->next = current->next;
+        node->prev = current;
+        if (current->next != NULL) {
+            current->next->prev = node;
+        }
+        current->next = node;
+    }
+}
+
+
+
+void insertionSortRecursive(Node **head) {
+    // Caso base: se la lista è vuota o ha un solo nodo, è già ordinata
+    if (*head == NULL || (*head)->next == NULL) {
         return;
     }
-
-    if (node1->prev != NULL) {
-        node1->prev->next = node2;
-    } else {
-        *head_ref = node2;
+    
+    Node *sortedTail = (*head)->next;  // Coda della lista ordinata
+    insertionSortRecursive(&sortedTail);  // Ordiniamo il resto della lista
+    
+    sortedTail->prev = NULL;  // Impostiamo il precedente della coda ordinata come NULL
+    Node *current = sortedTail->next;  // Nodo successivo alla coda ordinata
+    
+    while (current != NULL) {
+        Node *nextNode = current->next;  // Memorizziamo il nodo successivo
+        insertNode(&sortedTail, current);  // Inseriamo il nodo corrente nella lista ordinata
+        current = nextNode;  // Passiamo al nodo successivo
     }
-
-    if (node2->prev != NULL) {
-        node2->prev->next = node1;
-    } else {
-        *head_ref = node1;
-    }
-
-    struct Node* temp = node1->prev;
-    node1->prev = node2->prev;
-    node2->prev = temp;
-
-    temp = node1->next;
-    node1->next = node2->next;
-    node2->next = temp;
-
-    if (node1->next != NULL) {
-        node1->next->prev = node1;
-    }
-
-    if (node2->next != NULL) {
-        node2->next->prev = node2;
-    }
+    
+    *head = sortedTail;  // Aggiorniamo la testa della lista con la coda ordinata
 }
 
-int bubbleSort(struct Node** head, int count)
-{
-    struct Node** h;
-    int i, j, swapped;
- 
-    for (i = 0; i <= count; i++) {
- 
-        h = head;
-        swapped = 0;
- 
-        for (j = 0; j < count - i - 1; j++) {
- 
-            struct Node* p1 = *h;
-            struct Node* p2 = p1->next;
- 
-            if (p1->valore > p2->valore) {
- 
-                /* update the link after swapping */
-                swapNodes(head, p1, p2);
-                swapped = 1;
-            }
- 
-            h = &(*h)->next;
-        }
- 
-        /* break if the loop ended without any swap */
-        if (swapped == 0)
-            break;
-    }
-}
 
 int getLenght(Node *head){
     Node *cursore=head;
@@ -156,7 +139,7 @@ int main(){
 
     printList(l1);
     //printList(l2);
-    bubbleSort(&l1, getLenght(l1));
+    insertionSortRecursive(&l1);
     printf("Dopo aver ordinato l1\n");
     printList(l1);
     reversePrintList(getLast(l1));
