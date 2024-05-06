@@ -115,7 +115,7 @@ void addVert(Graph **g){
         printf("Il grafo passera' da [%d] a [%d] vertici\n", (*g)->nvert, (*g)->nvert+1);
         (*g)->nvert++;
         (*g)->adj_list = realloc((*g)->adj_list, (*g)->nvert * sizeof(Edge *));
-        (*g)->adj_list[(*g)->nvert-1]=NULL;
+        (*g)->adj_list[(*g)->nvert-1]=newEdge((*g)->nvert-1, 0);
     }
 }
 
